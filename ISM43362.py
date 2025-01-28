@@ -39,7 +39,7 @@ def ISM43362_ReadConfigFile(config_file='wifi.cfg'):
             for l in wifi_cfg:
                 if l.startswith("SSID"):
                     SSID = l.split("=")[1]
-                if l.startswith("WIFI-PW"):
+                if l.startswith("WIFI_PW"):
                     WIFI_PW = l.split("=")[1]
                 if l.startswith("SECURITY"):
                     s = l.split("=")[1]
