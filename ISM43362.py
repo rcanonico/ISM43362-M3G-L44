@@ -90,6 +90,7 @@ def ISM43362_ChipDeselect():
 
 def ISM43362_Init():
     #wkup_pin(0)
+    ISM43362_Reset()
     ISM43362_ChipSelect()
     data = b''   
     while ISM43362_Data_Ready():
@@ -307,7 +308,7 @@ def ISM43362_TestModule():
     print("[ISM43362] firmware:", firmware_version)
     
     MAC_address = ISM43362_GetMAC()
-    print("ISM43362 MAC_address:", MAC_address)
+    print("[ISM43362] WiFi MAC address:", MAC_address)
 
     ISM43362_SetAP_SSID(SSID)
     ISM43362_SetAP_Password(WIFI_PW)
@@ -315,8 +316,9 @@ def ISM43362_TestModule():
     ISM43362_EnableDHCP(DHCP_ENABLED)
     connection_ok = ISM43362_JoinAP()
 
-    status = ISM43362_GetStatus()
-    print("[ISM43362] status:", status)
+    if debug:
+        status = ISM43362_GetStatus()
+        print("[ISM43362] status:", status)
 
     if not ISM43362_IsConnected():
         print("[ISM43362] status: UNCONNECTED")
@@ -342,6 +344,5 @@ if __name__ == "__main__":
     if debug:
         print("[ISM43362] SPI settings:",spi)
     ISM43362_ReadConfigFile()
-    ISM43362_Reset()
     ISM43362_Init()
     ISM43362_TestModule()
